@@ -15,12 +15,18 @@ mongoose.connect(process.env.MONGO_URI).then(()=>{
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+
+
 app.set('view engine','ejs');
 app.set('views', path.resolve("./views"));
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(checkForAuthenticationCookie('token'));
 app.use(express.static(path.resolve("./public")));
+app.use((req,res,next)=>{
+  res.locals.user = req.user || null;
+  next();
+});
 
 app.get('/',async (req, res) => {
   const allBlogs = await Blog.find({});

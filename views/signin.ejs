@@ -5,25 +5,27 @@
     <title>Signin</title>
 </head>
 <body>
-   <%- include('./partials/nav') %>
-   
-   <div class="container mt-4">
-    <form  action="/user/signin" method="POST">
-   
-  <div class="mb-3">
-    <label for="email" class="form-label">Email address</label>
-    <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp">
-    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+  <%- include('./partials/nav') %>
+  <div class="container d-flex align-items-center justify-content-center" style="min-height: 80vh;">
+    <div class="card shadow p-4" style="max-width: 400px; width: 100%; border-radius: 1.2rem;">
+      <h2 class="mb-4 text-center fw-bold" style="color:#6366f1;">Sign In</h2>
+      <form action="/user/signin" method="POST">
+        <div class="mb-3">
+          <label for="email" class="form-label">Email address</label>
+          <input type="email" class="form-control" id="email" name="email" required>
+          <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" class="form-control" id="password" name="password" required>
+        </div>
+        <button type="submit" class="btn btn-primary w-100 py-2 mt-2">Sign In</button>
+      </form>
+      <div class="text-center mt-3">
+        <span>Don't have an account? <a href="/user/signup" style="color:#6366f1;">Create one</a></span>
+      </div>
+    </div>
   </div>
-  <div class="mb-3">
-    <label for="password" class="form-label">Password</label>
-    <input type="password" class="form-control" id="password" name="password">
-  </div>
-  
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
-   </div>
-   
-   <%- include('./partials/scripts') %>
+  <%- include('./partials/scripts') %>
 </body>
 </html>

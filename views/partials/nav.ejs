@@ -3,7 +3,7 @@
   data-bs-theme="dark"
 >
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Blogsy</a>
+    <a class="navbar-brand" href="/">Blogsy</a>
     <button
       class="navbar-toggler"
       type="button"
@@ -18,7 +18,7 @@
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
+          <a class="nav-link active" aria-current="page" href="/">Home</a>
         </li>
         <% if (locals.user) { %>
         <li class="nav-item">
@@ -32,7 +32,9 @@
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-           Ashish Tiwari
+            <% if (user) { %>
+            <span><%= user.fullName %></span>
+            <% } %>
           </a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="/user/logout">Logout</a></li>
@@ -47,6 +49,15 @@
         </li>
         <% } %>
       </ul>
+      <button
+        id="darkModeToggle"
+        class="btn btn-outline-light ms-auto"
+        type="button"
+        style="border-radius: 2rem"
+      >
+        <span id="darkModeIcon" class="bi bi-moon"></span>
+        <span class="d-none d-md-inline">Dark Mode</span>
+      </button>
     </div>
   </div>
 </nav>
@@ -56,3 +67,34 @@
   <div class="alert alert-danger" role="alert"><%= locals.error %></div>
 </div>
 <% } %>
+
+<script>
+  // Dark mode toggle logic
+  const toggleBtn = document.getElementById("darkModeToggle");
+  const icon = document.getElementById("darkModeIcon");
+  function setDarkMode(on) {
+    if (on) {
+      document.documentElement.classList.add("dark-mode");
+      localStorage.setItem("darkMode", "on");
+      if (icon) icon.className = "bi bi-brightness-high";
+    } else {
+      document.documentElement.classList.remove("dark-mode");
+      localStorage.setItem("darkMode", "off");
+      if (icon) icon.className = "bi bi-moon";
+    }
+  }
+  if (toggleBtn) {
+    toggleBtn.onclick = function () {
+      setDarkMode(!document.documentElement.classList.contains("dark-mode"));
+    };
+  }
+  // On load, set mode from localStorage
+  if (localStorage.getItem("darkMode") === "on") {
+    setDarkMode(true);
+  }
+</script>
+<!-- Bootstrap Icons CDN for moon/sun icons -->
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+/>
